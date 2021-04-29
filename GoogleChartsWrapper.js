@@ -1,6 +1,6 @@
 // This function wraps around Google Line Charts to format them in a specific way
 
-function GraphWrapper({Google_Spreadsheet_Link, threshold_year = 2011, targetElement = 'chart_div', 
+       function GraphWrapper({Google_Spreadsheet_Link, threshold_year = 2011, targetElement = 'chart_div', 
       YAxisTitle = "Y Axis Title", YAxisTitle2 = "Second Y Axis", twoYAxes = false, SST = false, YAxisZero = false} = {}) {
 
       var query = new google.visualization.Query(Google_Spreadsheet_Link);
@@ -10,23 +10,35 @@ function GraphWrapper({Google_Spreadsheet_Link, threshold_year = 2011, targetEle
 
         var GoogleData = response.getDataTable();
         var maxValue = 0;
-        var minValue = 10000000000;
+        var minValue = 100000000;
 
         var original_col_number = GoogleData.getNumberOfColumns();
-        for (let i = 1; i < original_col_number; i++){
-          if (maxValue < GoogleData.getColumnRange(i).max){
-            maxValue = GoogleData.getColumnRange(i).max;
-          }
-          if (minValue > GoogleData.getColumnRange(i).min){
-            minValue = GoogleData.getColumnRange(i).min;
-          }
 
+
+        if (twoYAxes == false) {
+          for (let i = 1; i < original_col_number; i++){
+            if (maxValue < GoogleData.getColumnRange(i).max){
+              maxValue = GoogleData.getColumnRange(i).max;
+            }
+            if (minValue > GoogleData.getColumnRange(i).min){
+              minValue = GoogleData.getColumnRange(i).min;
+            }
+          }
+        } else { // twoYAxes = true
+          maxValue = GoogleData.getColumnRange(1).max;
+          minValue = GoogleData.getColumnRange(1).min;
+          Axis2MaxValue = GoogleData.getColumnRange(2).max;
+          Axis2MinValue = GoogleData.getColumnRange(2).min;
         }
-        maxValue = maxValue*1.1;
-        minValue = minValue*0.9;
 
-        if (YAxisZero == true) {minValue = 0;}
-        console.log(minValue);
+        if (YAxisZero == true) {
+          minValue = 0;
+          Axis2MinValue = 0;
+        }
+
+        //minValue = 2500000;
+        console.log("Minvalue: " + minValue);
+
         GoogleData.addColumn('number','Background');
         GoogleData.addColumn( {role: 'style', type: 'string'});
         GoogleData.addColumn( {role: 'annotation', type: 'string'});
@@ -112,8 +124,8 @@ function GraphWrapper({Google_Spreadsheet_Link, threshold_year = 2011, targetEle
             2: {targetAxisIndex: 0, type: "area", color: 'CornflowerBlue', visibleInLegend: false}};
           options.vAxes = {
             textStyle: {fontSize: 15},
-            0: {title: YAxisTitle, viewWindow: {max: maxValue, min: minValue}, baseline: minValue},
-            1: {title: YAxisTitle2}};
+            0: {title: YAxisTitle, viewWindow: {max: maxValue, min: minValue}, baseline: minValue},  
+            1: {title: YAxisTitle2, viewWindow: {max: Axis2MaxValue, min: Axis2MinValue}, baseline: Axis2MinValue}};
           options.vAxis = {titleTextStyle: {bold: true, italic: false, fontSize: 15 },
             minorGridlines: {color: 'transparent'}};
         }
