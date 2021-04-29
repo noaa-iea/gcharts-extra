@@ -24,20 +24,20 @@ function createFKContent(DataSourceURL, icon){
     var YAxis2Title = GoogleData.getValue(rowNumber, getColumnIndex(GoogleData, "y2_label"));
     var SpreadsheetLink = GoogleData.getValue(rowNumber, getColumnIndex(GoogleData, "data"));
 
+    document.getElementById('caption').innerHTML = caption;
+    document.getElementById('title').innerHTML = title;
+
+    var node = document.createElement("a");                
+    var textnode = document.createTextNode(source);    
+    node.appendChild(textnode);             
+    node.href = provider_link;  
+    node.target = "_parent";         
+    document.getElementById("source").appendChild(node);
+    
     if (SpreadsheetLink == null){
       document.getElementById('chart_div').innerHTML = "<em>No data</em> yet assigned to icon <b>" + icon + "</b>. This needs to be specified in the Google Sheet 'icons to data | fk-esr-info'.";
     }
     else {
-      document.getElementById('caption').innerHTML = caption;
-      document.getElementById('title').innerHTML = title;
-
-      var node = document.createElement("a");                
-      var textnode = document.createTextNode(source);    
-      node.appendChild(textnode);             
-      node.href = provider_link;  
-      node.target = "_parent";         
-      document.getElementById("source").appendChild(node);
-
       GraphWrapper({Google_Spreadsheet_Link: SpreadsheetLink,
         YAxisTitle: YAxisTitle,
         threshold_year: 2011,
