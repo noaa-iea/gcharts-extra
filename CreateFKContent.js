@@ -7,6 +7,15 @@ function getColumnIndex(dataTable, columnName){
   return i;
 }
 
+// This is a helper function used by createFKContent (below) to determine if the domain of a url provided is a noaa.gov domain
+// If it is, this returns true, otherwise false.
+function NOAA_Domain(url) {
+  var a = document.createElement('a');
+  a.href = url;
+  hostname = a.hostname;
+  return (hostname.slice(-8) == "noaa.gov");
+}
+
 // This function generates the modal window content for the Florida Keys ESR site
 function createFKContent(DataSourceURL, icon){
   var query = new google.visualization.Query(DataSourceURL);
@@ -27,11 +36,19 @@ function createFKContent(DataSourceURL, icon){
     document.getElementById('caption').innerHTML = caption;
     document.getElementById('title').innerHTML = title;
 
+    if (NOAA_Domain(provider_link) == false) {
+      var external_icon = document.createElement("i"); 
+      external_icon.className = "fas fa-external-link-alt";
+      external_icon.style.cssText = "padding-right: 7px; padding-left: 2px;";
+      document.getElementById("source").appendChild(external_icon);
+    }
+
     var node = document.createElement("a");                
     var textnode = document.createTextNode(source);    
     node.appendChild(textnode);             
     node.href = provider_link;  
-    node.target = "_parent";         
+    node.target = "_blank";     
+    node.rel = "noreferrer noopener";  
     document.getElementById("source").appendChild(node);
     
     if (SpreadsheetLink == null){
