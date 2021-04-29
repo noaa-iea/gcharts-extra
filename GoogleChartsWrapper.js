@@ -24,20 +24,19 @@
               minValue = GoogleData.getColumnRange(i).min;
             }
           }
+          minValue = minValue * 0.9;
+          maxValue = maxValue *1.1;
         } else { // twoYAxes = true
-          maxValue = GoogleData.getColumnRange(1).max;
-          minValue = GoogleData.getColumnRange(1).min;
-          Axis2MaxValue = GoogleData.getColumnRange(2).max;
-          Axis2MinValue = GoogleData.getColumnRange(2).min;
+          maxValue = (GoogleData.getColumnRange(1).max)*1.1;
+          minValue = (GoogleData.getColumnRange(1).min)*0.9;
+          Axis2MaxValue = (GoogleData.getColumnRange(2).max)*1.1;
+          Axis2MinValue = (GoogleData.getColumnRange(2).min)*0.9;
         }
 
         if (YAxisZero == true) {
           minValue = 0;
           Axis2MinValue = 0;
         }
-
-        //minValue = 2500000;
-        console.log("Minvalue: " + minValue);
 
         GoogleData.addColumn('number','Background');
         GoogleData.addColumn( {role: 'style', type: 'string'});
