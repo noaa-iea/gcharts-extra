@@ -17,7 +17,7 @@ Parameters for the Javascript function `GraphWrapper()`:
   - YAxisTitle: string data type. Name of y-axis title. Default value of "Y Axis Title".
   - YAxisTitle2: string data type. Name of second y-axis title. Default value of "Second Y Axis".
   - twoYAxes: boolean data type. Whether the figure has two y-axes. Default value of false. 
-  - SST: boolean data type. Whether the figure contains sea-surface temperature data (which have a unique data structure and need to be handled differently). Default value of false,. 
+  - SST: boolean data type. Whether the figure contains sea-surface temperature data (which have a unique data structure and need to be handled differently). Default value of false. 
   - YAxisZero: boolean data type. Whether the y-axis should begin at 0. Default value of false.
 
 Parameters for the Javascript function `createFKContent()`:
