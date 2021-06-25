@@ -6,7 +6,7 @@ Extra Javascript functionality for Integrated Ecosystem Assessments (IEA) plotti
 # Demonstration
 To see plotJS-extra in action, check out the site for the [Florida Keys NMS IEA Report](https://noaa-iea.github.io/fk-esr-info/home.html), where all of the figures incorporate plotJS-extra.
 
-A simple example using plotJS-extra that you can use as a template can be found [here](https://marinebon.org/infographiqJS/infographiq_example/modals/modal_google_charts2.html). 
+A simple example using `GraphWrapper()` that you can use as a template can be found [here](https://marinebon.org/infographiqJS/infographiq_example/modals/modal_google_charts2.html). 
 # Functionality 
 Parameters for the Javascript function `GraphWrapper()`:
 - Required parameters
